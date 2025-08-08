@@ -66,6 +66,45 @@ If you wish to compile this project from Github source, you'll need Visual Studi
 If you'd like to contribute please make sure to comment your code thoroughly and try to split major features up into their own PRs when possible.
 
 
+## Development Notes
+
+### Project Objective
+
+Create a unified launcher management system supporting multiple launchers (Steam, Epic, Legendary, GOG Galaxy, etc.) with flexible configuration via `launcherinfo.json`.
+
+### Current Status
+
+* `launcherinfo.json` file defined with multiple launcher configurations.
+* `LauncherInfoManager` implemented to parse the JSON and provide launcher info.
+* Base project refactored to prepare for launcher abstraction.
+
+### Last Completed Step
+
+* Step 2: Created and tested `LauncherInfoManager` to reliably parse launcherinfo.json and expose current launcher data.
+
+### Next Steps
+
+* Step 3: Integrate launcherinfo.json data into `LaunchLogic` class.
+* Implement logic to detect launcher type from game path and auto-build launch URIs.
+* Support additional launchers beyond Epic, Legendary, and GOG Galaxy.
+* Refactor code to replace hardcoded paths and values with config-driven data.
+
+### Epic Launcher Integration Details
+
+* The Epic launcher URI requires the correct game identifier.
+* To get this, the Legendary launcher executable path (defined in the JSON) will be used to execute a JSON export of installed games.
+* This export contains the official game names and metadata.
+* The Epic manifests (found in the Epic Games install folder) are then parsed to determine the install paths for each game.
+* By matching the install paths from the manifests with the game data from Legendary’s export, the code can resolve the correct game identifier.
+* This game identifier is appended to the `launcherURIPrefix` from `launcherinfo.json` to build the full launch URI.
+* This approach avoids hardcoding Epic game IDs and allows for dynamic and flexible launch handling.
+
+### Notes / Blockers
+
+* Need to confirm consistent naming conventions across JSON, INI, and code.
+* Confirm error handling for missing or malformed launcherinfo.json.
+* Investigate adding support for other launchers like GOG Galaxy.
+
 Credits
 =======
 Special thanks to CriticalComposer for his art/icon contribution to the OSOL project.
