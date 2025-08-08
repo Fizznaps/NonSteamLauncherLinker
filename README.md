@@ -25,6 +25,7 @@ How To Use
 
 NEW STUFF
 * OSOL supports an external JSON file named launcherinfo.json placed alongside the game install folder. This file defines settings for different launchers and helps OSOL automatically configure launch parameters.
+
 | Field                 | Description                                                                                                  |
 | --------------------- | ------------------------------------------------------------------------------------------------------------ |
 | **Launcher**          | The active launcher name (case-insensitive), e.g., `"Epic"` or `"Legendary"`.                                |
