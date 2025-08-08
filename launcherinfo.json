@@ -1,6 +1,12 @@
 {
   "launcher": "epic",
-  "launcherPath": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win64\\EpicGamesLauncher.exe",
-  "launcherURI": "com.epicgames.launcher://apps/SampleGame",
-  "closeLauncherAfterLaunch": true
+    {
+    "launcherPath": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win64\\EpicGamesLauncher.exe",
+    "launcherURI": "com.epicgames.launcher://apps/SampleGame",
+    "closeLauncherAfterLaunch": true
+    "legendarylocation": ""
+    "epicgameinstallPath":""
+    }
+  "legendaryexepath":""
 }
+
