@@ -23,6 +23,15 @@ How To Use
 * Run this non-Steam game shortcut from the Steam library as any other Steam game and the Steam overlay and third-party overlay should show up in-game (if enabled).
 * **Optional:** _for advanced functionality or compatibility options for particular launchers see the OSOL project [Wiki](https://github.com/WombatFromHell/OriginSteamOverlayLauncher/wiki)._
 
+NEW STUFF
+* OSOL supports an external JSON file named launcherinfo.json placed alongside the game install folder. This file defines settings for different launchers and helps OSOL automatically configure launch parameters.
+| Field                 | Description                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Launcher**          | The active launcher name (case-insensitive), e.g., `"Epic"` or `"Legendary"`.                                |
+| **LauncherPath**      | Full path to the launcher executable for that platform.                                                      |
+| **LauncherUriPrefix** | URI prefix for launching games via the launcher (optional). Used only if `UseUri` is `true`.                 |
+| **GameInstallPath**   | Path where the game is installed (optional, can be blank).                                                   |
+| **UseUri**            | *Optional.* Boolean flag indicating whether the launcher uses URI launching. Defaults to `false` if omitted. |
 
 Notes
 =====
