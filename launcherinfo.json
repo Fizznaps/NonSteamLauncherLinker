@@ -9,6 +9,6 @@
   "Legendary": {
     "LauncherPath": "C:\\Path\\To\\LegendaryLauncher.exe",
     "GameInstallPath": ""
-    // UseUri omitted, defaults to false
   }
 }
+
