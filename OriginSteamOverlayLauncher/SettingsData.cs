@@ -28,6 +28,9 @@ namespace OriginSteamOverlayLauncher
             public string PreLaunchExecArgs { get; set; } = "";
             public string PostGameExecPath { get; set; } = "";
             public string PostGameExecArgs { get; set; } = "";
+        
+            // Rename or add the GameInstallDir property here for in-memory use only:
+            public string GameInstallDir { get; set; } = "";
         }
 
 
