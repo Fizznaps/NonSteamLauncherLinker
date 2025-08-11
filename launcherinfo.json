@@ -1,5 +1,4 @@
 {
-  "Launcher": "Epic",
   "Epic": {
     "LauncherPath": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win64\\EpicGamesLauncher.exe",
     "LauncherUriPrefix": "com.epicgames.launcher://apps/",
@@ -11,4 +10,5 @@
     "GameInstallPath": ""
   }
 }
+
 
