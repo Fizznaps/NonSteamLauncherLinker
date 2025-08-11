@@ -28,7 +28,11 @@ namespace OriginSteamOverlayLauncher
             public string PreLaunchExecArgs { get; set; } = "";
             public string PostGameExecPath { get; set; } = "";
             public string PostGameExecArgs { get; set; } = "";
+        
+            // 🆕 Added pulling the game install path from the game selection to be able to use it later to derive the launcher:
+            public string InstallPath { get; set; } = "";
         }
+
 
         public class OptionsSettings
         {
