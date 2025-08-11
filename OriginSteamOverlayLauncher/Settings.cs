@@ -383,16 +383,13 @@ namespace OriginSteamOverlayLauncher
                     Data.Paths.GamePath = file.FileName;
                     ReplaceKey("GamePath", Data.Paths.GamePath, "Paths");
                     
-                // Derive install path temporarily (do NOT persist)
-                string installPath = Path.GetDirectoryName(file.FileName);
-                if (SettingsData.ValidatePath(installPath))
-                {
-                    ProcessUtils.Logger("INFO", $"Derived temporary install path: {installPath}");
-                
-                    // Optional: use installPath to help locate the launcher, suggest defaults, etc.
-                    // Example: string defaultLauncher = Path.Combine(installPath, "Launcher.exe");
-                }
-
+                    // Derive install path temporarily (do NOT persist)
+                    string installPath = Path.GetDirectoryName(file.FileName);
+                    if (SettingsData.ValidatePath(installPath))
+                    {
+                        // Use installPath here temporarily — e.g., logging or to help find launcher
+                        ProcessUtils.Logger("INFO", $"Derived install path: {installPath}");
+                    }
 
                 }
             }
@@ -429,4 +426,5 @@ namespace OriginSteamOverlayLauncher
         }   
     }
 }
+
 
