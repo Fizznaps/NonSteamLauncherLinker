@@ -293,11 +293,17 @@ namespace OriginSteamOverlayLauncher
                 input = InstanceToList();
 
             var output = input.ToList();
-            for (int i = 0; i < output.Count; i++)
+//            for (int i = 0; i < output.Count; i++)
+//            {
+                //if (ProcessUtils.OrdinalContains(keyName, output[i]))
+                  //  output.RemoveAt(i);
+            //}
+            for (int i = output.Count - 1; i >= 0; i--)
             {
                 if (ProcessUtils.OrdinalContains(keyName, output[i]))
                     output.RemoveAt(i);
             }
+
             if (output.Count != input.Count)
             {
                 if (!testable)
@@ -361,24 +367,36 @@ namespace OriginSteamOverlayLauncher
             /*
              * Ask for the Game path
              */
-
+        
             if (!SettingsData.ValidatePath(Data.Paths.GamePath))
-            {// only re-ask for path if current one is invalid
+            {
                 OpenFileDialog file = new OpenFileDialog()
                 {
                     Title = "Choose the path of your game executable",
                     Filter = "EXE Files|*.exe|All Files|*.*",
                     InitialDirectory = Path.GetDirectoryName(Program.GetCodeBase)
                 };
-
+        
                 if (file.ShowDialog() == DialogResult.OK
                     && SettingsData.ValidatePath(file.FileName))
                 {
                     Data.Paths.GamePath = file.FileName;
                     ReplaceKey("GamePath", Data.Paths.GamePath, "Paths");
-                }// don't do anything if we cancel out
-            }
+                    
+                // Derive install path temporarily (do NOT persist)
+                string installPath = Path.GetDirectoryName(file.FileName);
+                if (SettingsData.ValidatePath(installPath))
+                {
+                    ProcessUtils.Logger("INFO", $"Derived temporary install path: {installPath}");
+                
+                    // Optional: use installPath to help locate the launcher, suggest defaults, etc.
+                    // Example: string defaultLauncher = Path.Combine(installPath, "Launcher.exe");
+                }
 
+
+                }
+            }
+        
             /*
              * Ask for the Launcher path
              */
@@ -390,7 +408,7 @@ namespace OriginSteamOverlayLauncher
                     Filter = "EXE Files|*.exe|All Files|*.*",
                     InitialDirectory = Path.GetDirectoryName(Program.GetCodeBase)
                 };
-
+        
                 if (file.ShowDialog() == DialogResult.OK
                     && SettingsData.ValidatePath(file.FileName))
                 {
@@ -398,16 +416,17 @@ namespace OriginSteamOverlayLauncher
                     ReplaceKey("LauncherPath", Data.Paths.LauncherPath, "Paths");
                 }
             }
-
+        
             if (!SettingsData.ValidatePath(Data.Paths.LauncherPath) &&
                 !SettingsData.ValidatePath(Data.Paths.GamePath))
-            {// sanity check in case of cancelling both path inputs
+            {
                 ProcessUtils.Logger("FATAL", "A valid LauncherPath or GamePath is required to function!");
                 Process.GetCurrentProcess().Kill(); // bail!
             }
-
+        
             ProcessUtils.MessageBox(IntPtr.Zero, "INI updated, OSOL should be restarted for normal behavior, exiting...", "Notice", (int)0x00001000L);
             Process.GetCurrentProcess().Kill();
-        }
+        }   
     }
 }
+
