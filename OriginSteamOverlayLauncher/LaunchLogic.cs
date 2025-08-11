@@ -27,8 +27,37 @@ namespace OriginSteamOverlayLauncher
         private SettingsData SetHnd { get; } = Program.CurSettings.Data;
         private TrayIconUtil TrayUtil { get; }
 
+        // Additions
+        private LauncherInfoManager LauncherManager { get; set; }
+        private List<LauncherInfo> Launchers { get; set; }
+        // Adding logging for detecting which launcher was found
+        private LauncherInfo DetectLauncherFromGamePath()
+        {
+            if (Launchers == null || Launchers.Count == 0 || string.IsNullOrEmpty(SetHnd?.Paths?.GamePath))
+                return null;
+        
+            string gameExe = Path.GetFileName(SetHnd.Paths.GamePath);
+        
+            return Launchers.FirstOrDefault(l =>
+                !string.IsNullOrEmpty(l.GameExeName) &&
+                string.Equals(l.GameExeName, gameExe, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+
+
         public LaunchLogic()
         {
+            try
+            {
+                LauncherManager = new LauncherInfoManager("launcherinfo.json");
+                Launchers = LauncherManager.GetAllLaunchers();
+            }
+            catch (Exception ex)
+            {
+                ProcessUtils.Logger("ERROR", $"Failed to load launcherinfo.json: {ex.Message}");
+                Launchers = new List<LauncherInfo>();
+            }
+        
             LauncherName = Path.GetFileNameWithoutExtension(SetHnd.Paths.LauncherPath);
             GameName = Path.GetFileNameWithoutExtension(SetHnd.Paths.GamePath);
             MonitorPath = SettingsData.ValidatePath(SetHnd.Paths.MonitorPath) ?
@@ -40,7 +69,19 @@ namespace OriginSteamOverlayLauncher
             PreLaunchPathValid = SettingsData.ValidatePath(SetHnd.Paths.PreLaunchExecPath);
             PostGamePathValid = SettingsData.ValidatePath(SetHnd.Paths.PostGameExecPath);
             TrayUtil = new TrayIconUtil();
+        
+            // Detect launcher from game executable
+            var matchedLauncher = DetectLauncherFromGamePath();
+            if (matchedLauncher != null)
+            {
+                ProcessUtils.Logger("OSOL", $"Detected launcher from game exe: {matchedLauncher.LauncherName}");
+            }
+            else
+            {
+                ProcessUtils.Logger("OSOL", "No matching launcher found for the game exe.");
+            }
         }
+
 
         public async Task ProcessLauncher()
         {
