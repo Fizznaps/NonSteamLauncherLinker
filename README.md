@@ -1,3 +1,5 @@
+**This project is in progress from a non-coder and is not functional.**
+
 My goal for this project is to extend OSOL by Wambatfromhell into a more universal and less fussy solution that uses some extra config files to automate creating the ini for each launcher.  The major benefits would be so that I can launch all games, regardless of platform, from steam by using a uri where available to take full advantage of each launchers features, such as cloud saves, synced progress, achievements, etc.  It also makes it so my in home streaming and living room PC can have a single front end because I somehow find a steam front end less fussy than playnite.
 
 I would also like to implement a way for it to autmatically add the games as nonsteam games in steam.
